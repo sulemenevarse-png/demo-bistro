@@ -214,14 +214,108 @@ model-viewer {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* ---------- print: только QR-тейбл-тент ---------- */
-.print-only { display: none; }
-@media print {
-  body { background: #fff; color: #000; }
-  body > *:not(.print-only) { display: none !important; }
-  .print-only { display: flex !important; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 95vh; font-family: var(--font-body); }
-  .print-only h1 { font-family: var(--font-display); font-size: 40px; margin: 0 0 8px; }
-  .print-only p { font-size: 20px; margin: 0 0 28px; }
-  .print-only .print-qr img, .print-only .print-qr canvas { width: 9cm !important; height: 9cm !important; }
-  .print-only small { margin-top: 20px; font-size: 14px; color: #555; }
+/* ---------- Wi-Fi карточка на главной ---------- */
+.wifi-card {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; margin-top: 20px;
+  padding: 14px 14px 14px 16px; border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(255, 196, 107, 0.14), rgba(255, 138, 61, 0.06)), var(--surface);
+  border: 1px solid rgba(255, 196, 107, 0.28); box-shadow: var(--shadow);
+  animation: rise 0.6s cubic-bezier(.2, .8, .2, 1) both;
 }
+.wifi-icon { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: rgba(255, 138, 61, 0.16); color: var(--accent-2); }
+.wifi-icon svg { width: 22px; height: 22px; }
+.wifi-info { min-width: 0; display: flex; flex-direction: column; }
+.wifi-info small { color: var(--muted); font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wifi-info b { font-size: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wifi-pass { color: var(--muted); font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wifi-pass code { font-family: ui-monospace, "SF Mono", Menlo, monospace; color: var(--text); font-size: 14px; letter-spacing: 0.02em; }
+.wifi-copy { padding: 10px 14px; font-size: 14px; }
+.qr-lead { color: var(--muted); font-size: 13px; margin: 0 0 12px; word-break: normal !important; }
+
+/* ---------- setup (для ресторана) ---------- */
+.wrap-wide { width: min(100%, 1080px); }
+.setup-head h1 { font-family: var(--font-display); font-size: clamp(24px, 5vw, 34px); margin: 8px 0 8px; letter-spacing: -0.01em; }
+.setup-head p { color: var(--muted); margin: 0 0 24px; max-width: 620px; }
+.setup-grid { display: grid; gap: 28px; grid-template-columns: 1fr; padding-bottom: 48px; }
+@media (min-width: 900px) { .setup-grid { grid-template-columns: minmax(0, 1fr) 440px; align-items: start; } .preview { position: sticky; top: 76px; } }
+
+.setup-form fieldset { margin: 0 0 16px; padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); display: grid; gap: 14px; }
+.setup-form legend { padding: 0 6px; font-family: var(--font-display); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-2); }
+.field { display: grid; gap: 6px; }
+.field > span, .field > label { font-size: 13.5px; font-weight: 700; }
+.field em { font-style: normal; font-weight: 500; color: var(--muted); }
+.field-short input { max-width: 140px; }
+.field input:not([type=radio]) {
+  width: 100%; padding: 13px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface-2);
+  color: var(--text); font: inherit; font-size: 16px; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field input:focus { border-color: rgba(255, 138, 61, 0.7); box-shadow: 0 0 0 4px rgba(255, 138, 61, 0.15); }
+.field input::placeholder { color: #6e665c; }
+.field-error { color: #ff7a6b; font-size: 12.5px; min-height: 0; }
+.field-error:empty { display: none; }
+.pass-wrap { position: relative; }
+.pass-wrap input { padding-right: 52px !important; font-family: ui-monospace, "SF Mono", Menlo, monospace !important; }
+.pass-eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); cursor: pointer; display: grid; place-items: center; }
+.pass-eye svg { width: 20px; height: 20px; }
+.pass-eye.on { color: var(--accent-2); }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); }
+.seg label { flex: 1 1 auto; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg span { display: block; text-align: center; padding: 9px 10px; border-radius: 10px; font-size: 14px; font-weight: 700; color: var(--muted); cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.seg input:checked + span { background: linear-gradient(135deg, var(--accent-2), var(--accent)); color: var(--accent-ink); }
+.seg input:focus-visible + span { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--muted); cursor: pointer; }
+.check input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--accent); flex: none; }
+.setup-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.setup-actions .btn:first-child { grid-column: 1 / -1; }
+.setup-actions .btn { white-space: nowrap; }
+.setup-actions .btn-ghost { font-size: 15px; padding: 14px 10px; }
+.reset-link { margin-top: 14px; background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: 13px; padding: 4px 0; }
+
+.preview-label { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
+
+/* Табличка: печатная, светлая, A6 (105 × 148 мм) */
+.tent {
+  --ink: #1b140e; --paper: #fbf6ef; --tone: #ff8a3d;
+  width: 100%; max-width: 420px; margin: 0 auto; aspect-ratio: 105 / 148;
+  background: var(--paper); color: var(--ink); border-radius: 18px; padding: 7.5% 7% 6%;
+  display: flex; flex-direction: column; box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  font-family: var(--font-body); position: relative; overflow: hidden;
+}
+.tent::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: linear-gradient(90deg, #ffc46b, var(--tone)); }
+.tent-brand { display: flex; align-items: center; gap: 12px; }
+.tent-mark { width: 46px; height: 46px; flex: none; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(135deg, #ffc46b, var(--tone)); color: var(--ink); font-family: var(--font-display); font-weight: 800; font-size: 17px; }
+.tent-brand h2 { margin: 0; font-family: var(--font-display); font-size: 22px; line-height: 1.1; letter-spacing: -0.01em; word-break: break-word; }
+.tent-brand p { margin: 3px 0 0; font-size: 12px; color: #6b5e50; line-height: 1.3; }
+.tent-table { align-self: flex-start; margin-top: 10px; padding: 4px 10px; border-radius: 999px; border: 1.5px solid var(--ink); font-weight: 800; font-size: 12px; letter-spacing: 0.04em; }
+.tent-hero { margin: auto 0; padding: 6% 0; }
+.tent-hero b { display: block; font-family: var(--font-display); font-weight: 800; font-size: 30px; line-height: 1.02; letter-spacing: -0.02em; }
+.tent-hero b i { font-style: normal; background: linear-gradient(90deg, #ff9d4d, var(--tone)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tent-hero span { display: block; margin-top: 8px; font-size: 12px; color: #6b5e50; }
+.tent-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 6%; }
+.tent-step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.step-num { position: absolute; top: -11px; left: -6px; z-index: 1; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--paper); font-family: var(--font-display); font-weight: 700; font-size: 13px; }
+.step-qr { width: 100%; aspect-ratio: 1; background: #fff; border-radius: 12px; padding: 8%; border: 1.5px solid #eadfce; }
+.step-qr img, .step-qr canvas { width: 100% !important; height: 100% !important; image-rendering: pixelated; }
+.tent-step h3 { margin: 12px 0 2px; font-size: 14px; font-weight: 800; line-height: 1.2; }
+.step-sub { margin: 0; font-size: 10.5px; color: #6b5e50; line-height: 1.3; }
+.tent-creds { margin: 10px 0 0; width: 100%; display: grid; gap: 4px; }
+.tent-creds div { display: flex; justify-content: space-between; gap: 6px; padding: 5px 8px; border-radius: 8px; background: #f1e8db; font-size: 10.5px; }
+.tent-creds dt { color: #6b5e50; }
+.tent-creds dd { margin: 0; font-weight: 800; font-family: ui-monospace, "SF Mono", Menlo, monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.tent-ar { margin-top: 10px; font-size: 10.5px; color: #6b5e50; display: flex; align-items: center; justify-content: center; gap: 6px; text-align: left; line-height: 1.25; }
+.tent-ar span { padding: 2px 6px; border-radius: 6px; background: var(--ink); color: #ffc46b; font-weight: 800; font-size: 10px; letter-spacing: 0.06em; }
+
+/* ---------- печать: только табличка ---------- */
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  html, body { background: #fff !important; min-height: 0 !important; }
+  .setup-body .topbar, .setup-head, .setup-form, .preview-label, .toast { display: none !important; }
+  .setup-body .wrap, .setup-grid, .preview { display: block !important; padding: 0 !important; margin: 0 !important; width: auto !important; position: static !important; }
+  .tent {
+    margin: 74mm auto 0; width: 105mm; max-width: none; height: 148mm; aspect-ratio: auto; border-radius: 0; box-shadow: none;
+    outline: 0.2mm dashed #bbb; break-inside: avoid; page-break-after: avoid;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+}
+.qr-card .btn { white-space: nowrap; }

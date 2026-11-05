@@ -1,4 +1,4 @@
-import { loadMenu, formatPrice, esc, homeUrl, renderQR } from './common.js';
+import { loadMenu, formatPrice, esc, homeUrl, renderQR, copyText, toast, readOverrides } from './common.js';
 
 const list = document.getElementById('menu-list');
 
@@ -35,20 +35,47 @@ async function init() {
     document.getElementById('cafe-name').textContent = menu.cafe.name;
     document.getElementById('cafe-tagline').textContent = menu.cafe.tagline;
     document.title = `${menu.cafe.name} — AR-меню`;
+    document.getElementById('brand-mark').textContent =
+      menu.cafe.name.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || 'DB';
+    // Гость конкретного ресторана (пришёл по QR с таблички) — блок «для ресторана» ему не нужен
+    const o = readOverrides();
+    if (o.n || o.w) document.getElementById('owner-block').remove();
     list.innerHTML = menu.dishes.map((d) => card(d, menu.cafe.currency)).join('');
     document.getElementById('credits').innerHTML = credits(menu.dishes);
 
-    const url = homeUrl(menu);
-    document.getElementById('qr-url').textContent = url;
-    document.getElementById('print-url').textContent = url;
-    // qrcode.js подключён с defer — к моменту выполнения модуля он уже загружен.
-    renderQR(document.getElementById('qr'), url, 224);
-    renderQR(document.getElementById('print-qr'), url, 512);
+    renderWifi(menu.cafe);
+
+    if (document.getElementById('owner-block')) {
+      const url = homeUrl(menu);
+      document.getElementById('qr-url').textContent = url;
+      // qrcode.js подключён с defer — к моменту выполнения модуля он уже загружен.
+      renderQR(document.getElementById('qr'), url, 224);
+    }
   } catch (err) {
     console.error(err);
     list.innerHTML = `<div class="error-box">Не удалось загрузить меню. Откройте сайт через веб-сервер, а не как файл.</div>`;
   }
 }
 
-document.getElementById('print-btn').addEventListener('click', () => window.print());
+function renderWifi(cafe) {
+  const w = cafe.wifi;
+  if (!w?.ssid) return;
+  const $ = (id) => document.getElementById(id);
+  $('wifi-ssid').textContent = w.ssid;
+  $('wifi-table').textContent = cafe.table ? ` · стол ${cafe.table}` : '';
+  const btn = $('wifi-copy');
+  if (w.password && w.security !== 'nopass') {
+    $('wifi-pass').textContent = w.password;
+    btn.addEventListener('click', async () => {
+      const ok = await copyText(w.password);
+      toast(ok ? 'Пароль скопирован — вставьте его в настройках Wi-Fi' : 'Не удалось скопировать');
+      if (ok) { btn.textContent = 'Готово ✓'; setTimeout(() => { btn.textContent = 'Скопировать'; }, 2000); }
+    });
+  } else {
+    $('wifi-pass-row').textContent = 'Без пароля';
+    btn.remove();
+  }
+  $('wifi-card').classList.remove('hidden');
+}
+
 init();

@@ -3,7 +3,13 @@
     "name": "Demo Bistro",
     "tagline": "Меню, которое можно поставить на стол",
     "currency": "₽",
-    "siteUrl": ""
+    "siteUrl": "",
+    "wifi": {
+      "ssid": "DemoBistro_Guest",
+      "password": "bistro2026",
+      "security": "WPA"
+    },
+    "table": ""
   },
   "dishes": [
     {
@@ -16,15 +22,42 @@
       "glb": "models/burger.glb",
       "usdz": "models/burger.usdz",
       "poster": "img/burger.webp",
-      "ingredients": ["булочка с кунжутом", "говяжья котлета 150 г", "сыр чеддер", "салат айсберг", "томаты", "фирменный соус"],
-      "tags": ["хит"],
+      "ingredients": [
+        "булочка с кунжутом",
+        "говяжья котлета 150 г",
+        "сыр чеддер",
+        "салат айсберг",
+        "томаты",
+        "фирменный соус"
+      ],
+      "tags": [
+        "хит"
+      ],
       "cook": [
-        { "type": "bunBottom", "label": "Булочка бриошь" },
-        { "type": "patty", "label": "Говяжья котлета 150 г" },
-        { "type": "cheese", "label": "Сыр чеддер 20 г" },
-        { "type": "lettuce", "label": "Салат айсберг 15 г" },
-        { "type": "tomato", "label": "Томаты 30 г" },
-        { "type": "bunTop", "label": "Булочка с кунжутом" }
+        {
+          "type": "bunBottom",
+          "label": "Булочка бриошь"
+        },
+        {
+          "type": "patty",
+          "label": "Говяжья котлета 150 г"
+        },
+        {
+          "type": "cheese",
+          "label": "Сыр чеддер 20 г"
+        },
+        {
+          "type": "lettuce",
+          "label": "Салат айсберг 15 г"
+        },
+        {
+          "type": "tomato",
+          "label": "Томаты 30 г"
+        },
+        {
+          "type": "bunTop",
+          "label": "Булочка с кунжутом"
+        }
       ],
       "credit": {
         "title": "Cheeseburger",
@@ -44,14 +77,37 @@
       "glb": "models/pizza.glb",
       "usdz": "models/pizza.usdz",
       "poster": "img/pizza.webp",
-      "ingredients": ["тесто на закваске", "томатный соус", "моцарелла", "пепперони", "орегано"],
-      "tags": ["30 см"],
+      "ingredients": [
+        "тесто на закваске",
+        "томатный соус",
+        "моцарелла",
+        "пепперони",
+        "орегано"
+      ],
+      "tags": [
+        "30 см"
+      ],
       "cook": [
-        { "type": "dough", "label": "Тесто на закваске 250 г" },
-        { "type": "sauce", "label": "Томатный соус 60 г" },
-        { "type": "mozzarella", "label": "Моцарелла 150 г" },
-        { "type": "pepperoni", "label": "Пепперони 80 г" },
-        { "type": "basil", "label": "Базилик и орегано" }
+        {
+          "type": "dough",
+          "label": "Тесто на закваске 250 г"
+        },
+        {
+          "type": "sauce",
+          "label": "Томатный соус 60 г"
+        },
+        {
+          "type": "mozzarella",
+          "label": "Моцарелла 150 г"
+        },
+        {
+          "type": "pepperoni",
+          "label": "Пепперони 80 г"
+        },
+        {
+          "type": "basil",
+          "label": "Базилик и орегано"
+        }
       ],
       "credit": {
         "title": "Pepperoni pizza",
@@ -71,15 +127,38 @@
       "glb": "models/cappuccino.glb",
       "usdz": "models/cappuccino.usdz",
       "poster": "img/cappuccino.webp",
-      "ingredients": ["эспрессо 60 мл", "молоко 3,2%", "молочная пена", "какао"],
+      "ingredients": [
+        "эспрессо 60 мл",
+        "молоко 3,2%",
+        "молочная пена",
+        "какао"
+      ],
       "tags": [],
       "cook": [
-        { "type": "saucer", "label": "Блюдце" },
-        { "type": "cup", "label": "Прогретая чашка" },
-        { "type": "espresso", "label": "Двойной эспрессо 60 мл" },
-        { "type": "milk", "label": "Молоко 180 мл" },
-        { "type": "foam", "label": "Молочная пена" },
-        { "type": "cocoa", "label": "Щепотка какао" }
+        {
+          "type": "saucer",
+          "label": "Блюдце"
+        },
+        {
+          "type": "cup",
+          "label": "Прогретая чашка"
+        },
+        {
+          "type": "espresso",
+          "label": "Двойной эспрессо 60 мл"
+        },
+        {
+          "type": "milk",
+          "label": "Молоко 180 мл"
+        },
+        {
+          "type": "foam",
+          "label": "Молочная пена"
+        },
+        {
+          "type": "cocoa",
+          "label": "Щепотка какао"
+        }
       ],
       "credit": {
         "title": "Coffee cup",

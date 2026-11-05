@@ -17,7 +17,7 @@
 <body>
   <header class="site-header wrap">
     <div class="brand">
-      <div class="brand-mark" aria-hidden="true">DB</div>
+      <div class="brand-mark" id="brand-mark" aria-hidden="true">DB</div>
       <div>
         <h1 id="cafe-name">Demo Bistro</h1>
         <p id="cafe-tagline">Меню, которое можно поставить на стол</p>
@@ -27,21 +27,36 @@
   </header>
 
   <main class="wrap">
+    <section class="wifi-card hidden" id="wifi-card" aria-label="Wi-Fi ресторана">
+      <div class="wifi-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+      </div>
+      <div class="wifi-info">
+        <small>Wi-Fi для гостей<span id="wifi-table"></span></small>
+        <b id="wifi-ssid"></b>
+        <span class="wifi-pass" id="wifi-pass-row">Пароль: <code id="wifi-pass"></code></span>
+      </div>
+      <button class="btn btn-primary wifi-copy" id="wifi-copy" type="button">Скопировать</button>
+    </section>
+
     <h2 class="section-title">Меню</h2>
     <div class="menu-list" id="menu-list" aria-live="polite"></div>
 
+    <section id="owner-block">
     <h2 class="section-title">QR-код для стола</h2>
     <div class="qr-card">
       <div class="qr-box" id="qr"></div>
       <div>
-        <h3>Распечатайте и положите на стол</h3>
+        <h3>Для ресторана</h3>
+        <p class="qr-lead">Укажите свой Wi-Fi и название — соберём табличку с двумя QR: подключиться к сети и открыть меню.</p>
         <p id="qr-url"></p>
-        <button class="btn btn-ghost" id="print-btn" type="button">
+        <a class="btn btn-ghost" href="setup.html">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
-          Распечатать
-        </button>
+          Табличка для стола
+        </a>
       </div>
     </div>
+    </section>
   </main>
 
   <footer class="site-footer wrap">
@@ -54,12 +69,5 @@
     <p>Демо-проект. Цены и состав условные.</p>
   </footer>
 
-  <!-- Версия для печати: тейбл-тент с QR -->
-  <section class="print-only" aria-hidden="true">
-    <h1>Demo Bistro</h1>
-    <p>Наведите камеру — и поставьте блюдо на стол в AR</p>
-    <div class="print-qr" id="print-qr"></div>
-    <small id="print-url"></small>
-  </section>
 </body>
 </html>

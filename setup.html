@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0d0b">
+  <title>Табличка для стола — Demo Bistro</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23ff8a3d'/><text x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%231b0f05'>DB</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js" defer></script>
+  <script type="module" src="js/setup.js"></script>
+</head>
+<body class="setup-body">
+  <div class="wrap wrap-wide">
+    <nav class="topbar">
+      <a class="icon-btn" href="./" aria-label="Назад в меню">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <span class="title">Для ресторана</span>
+      <span style="width:42px"></span>
+    </nav>
+
+    <header class="setup-head">
+      <h1>Табличка для стола</h1>
+      <p>Гость сканирует первый код — телефон сам подключается к Wi-Fi. Сканирует второй — открывается меню, где блюдо можно поставить на стол в 3D.</p>
+    </header>
+
+    <div class="setup-grid">
+      <form class="setup-form" id="setup-form" autocomplete="off" novalidate>
+        <fieldset>
+          <legend>Заведение</legend>
+          <label class="field">
+            <span>Название</span>
+            <input name="name" id="f-name" maxlength="40" placeholder="Demo Bistro" required>
+          </label>
+          <label class="field">
+            <span>Слоган <em>необязательно</em></span>
+            <input name="tagline" id="f-tagline" maxlength="70" placeholder="Меню, которое можно поставить на стол">
+          </label>
+          <label class="field field-short">
+            <span>Номер стола <em>необязательно</em></span>
+            <input name="table" id="f-table" maxlength="6" inputmode="numeric" placeholder="12">
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Wi-Fi для гостей</legend>
+          <label class="field">
+            <span>Название сети (SSID)</span>
+            <input name="ssid" id="f-ssid" maxlength="32" placeholder="Bistro_Guest" autocapitalize="off" spellcheck="false" required>
+          </label>
+          <div class="field">
+            <span>Защита</span>
+            <div class="seg" role="radiogroup" aria-label="Тип защиты">
+              <label><input type="radio" name="security" value="WPA" checked><span>WPA/WPA2</span></label>
+              <label><input type="radio" name="security" value="WEP"><span>WEP</span></label>
+              <label><input type="radio" name="security" value="nopass"><span>Без пароля</span></label>
+            </div>
+          </div>
+          <div class="field" id="pass-field">
+            <label for="f-pass">Пароль</label>
+            <div class="pass-wrap">
+              <input name="password" id="f-pass" type="password" maxlength="63" placeholder="минимум 8 символов" autocapitalize="off" spellcheck="false">
+              <button type="button" class="pass-eye" id="pass-eye" aria-label="Показать пароль">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <small class="field-error" id="pass-error"></small>
+          </div>
+          <label class="check">
+            <input type="checkbox" id="f-showpass" checked>
+            <span>Печатать пароль текстом под QR (для тех, у кого камера не читает коды)</span>
+          </label>
+        </fieldset>
+
+        <div class="setup-actions">
+          <button class="btn btn-primary btn-lg" id="print-btn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+            Распечатать
+          </button>
+          <button class="btn btn-ghost btn-lg" id="copy-link" type="button">Ссылка на меню</button>
+          <a class="btn btn-ghost btn-lg" id="open-menu" href="./" target="_blank" rel="noopener">Открыть как гость</a>
+        </div>
+        <button class="reset-link" id="reset-btn" type="button">Сбросить к демо-данным</button>
+      </form>
+
+      <section class="preview" aria-label="Предпросмотр таблички">
+        <div class="preview-label">Предпросмотр · формат A6</div>
+        <article class="tent" id="tent">
+          <div class="tent-brand">
+            <div class="tent-mark" id="t-mark">DB</div>
+            <div>
+              <h2 id="t-name">Demo Bistro</h2>
+              <p id="t-tagline">Меню, которое можно поставить на стол</p>
+            </div>
+          </div>
+          <div class="tent-table" id="t-table"></div>
+
+          <div class="tent-hero">
+            <b>Меню <i>в 3D</i><br>на вашем столе</b>
+            <span>Два шага — меньше 10 секунд</span>
+          </div>
+
+          <div class="tent-steps">
+            <div class="tent-step">
+              <div class="step-num">1</div>
+              <div class="step-qr" id="t-wifi-qr"></div>
+              <h3>Подключитесь к Wi-Fi</h3>
+              <p class="step-sub">Наведите камеру — сеть подключится сама</p>
+              <dl class="tent-creds" id="t-creds">
+                <div><dt>Сеть</dt><dd id="t-ssid"></dd></div>
+                <div id="t-pass-row"><dt>Пароль</dt><dd id="t-pass"></dd></div>
+              </dl>
+            </div>
+            <div class="tent-step">
+              <div class="step-num">2</div>
+              <div class="step-qr" id="t-menu-qr"></div>
+              <h3>Откройте меню</h3>
+              <p class="step-sub">Поставьте блюдо на стол через камеру</p>
+              <div class="tent-ar"><span>AR</span> без приложений</div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
