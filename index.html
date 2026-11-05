@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0d0b">
+  <meta name="description" content="Demo Bistro — AR-меню: посмотрите блюда в 3D и поставьте их на свой стол.">
+  <title>Demo Bistro — AR-меню</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23ff8a3d'/><text x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%231b0f05'>DB</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js" defer></script>
+  <script type="module" src="js/menu.js"></script>
+</head>
+<body>
+  <header class="site-header wrap">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">DB</div>
+      <div>
+        <h1 id="cafe-name">Demo Bistro</h1>
+        <p id="cafe-tagline">Меню, которое можно поставить на стол</p>
+      </div>
+    </div>
+    <div class="ar-pill"><span class="dot"></span>Откройте блюдо и нажмите «Поставить на стол»</div>
+  </header>
+
+  <main class="wrap">
+    <h2 class="section-title">Меню</h2>
+    <div class="menu-list" id="menu-list" aria-live="polite"></div>
+
+    <h2 class="section-title">QR-код для стола</h2>
+    <div class="qr-card">
+      <div class="qr-box" id="qr"></div>
+      <div>
+        <h3>Распечатайте и положите на стол</h3>
+        <p id="qr-url"></p>
+        <button class="btn btn-ghost" id="print-btn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+          Распечатать
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer wrap">
+    <h4>3D-модели</h4>
+    <ul id="credits"></ul>
+    <h4>Технологии</h4>
+    <ul>
+      <li><a href="https://modelviewer.dev" target="_blank" rel="noopener">&lt;model-viewer&gt;</a> (Apache-2.0), <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> (MIT), <a href="https://github.com/davidshimjs/qrcodejs" target="_blank" rel="noopener">qrcode.js</a> (MIT)</li>
+    </ul>
+    <p>Демо-проект. Цены и состав условные.</p>
+  </footer>
+
+  <!-- Версия для печати: тейбл-тент с QR -->
+  <section class="print-only" aria-hidden="true">
+    <h1>Demo Bistro</h1>
+    <p>Наведите камеру — и поставьте блюдо на стол в AR</p>
+    <div class="print-qr" id="print-qr"></div>
+    <small id="print-url"></small>
+  </section>
+</body>
+</html>

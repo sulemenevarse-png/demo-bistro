@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0d0b">
+  <title>Как готовят — Demo Bistro</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23ff8a3d'/><text x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%231b0f05'>DB</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="js/cook.js"></script>
+</head>
+<body class="cook-body">
+  <div class="cook-stage" id="stage"></div>
+  <div class="labels" id="labels"><svg id="label-lines"></svg></div>
+
+  <div class="cook-ui">
+    <div class="cook-top">
+      <a class="icon-btn" id="back-btn" href="./" aria-label="Назад">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <div>
+        <h1 id="cook-title">Как готовят</h1>
+        <p id="cook-sub">Соберём блюдо слой за слоем</p>
+      </div>
+    </div>
+
+    <div class="cook-caption" id="caption" aria-live="polite"></div>
+
+    <div class="cook-bottom">
+      <button class="btn btn-primary btn-lg" id="start-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Собрать
+      </button>
+      <button class="btn btn-ghost btn-lg hidden" id="replay-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        Повторить анимацию
+      </button>
+      <button class="btn btn-primary btn-lg hidden" id="order-btn" type="button">Заказать</button>
+    </div>
+  </div>
+</body>
+</html>

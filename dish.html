@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0d0b">
+  <title>Блюдо в 3D — Demo Bistro</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23ff8a3d'/><text x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%231b0f05'>DB</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.0.0/dist/model-viewer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js" defer></script>
+  <script type="module" src="js/dish.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="topbar">
+      <a class="icon-btn" href="./" aria-label="Назад в меню">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <span class="title" id="cafe-name">Demo Bistro</span>
+      <span style="width:42px"></span>
+    </nav>
+
+    <main id="dish-root">
+      <div class="viewer-shell">
+        <model-viewer id="mv"
+          alt="3D-модель блюда"
+          camera-controls
+          touch-action="pan-y"
+          interaction-prompt="none"
+          shadow-intensity="1"
+          shadow-softness="0.8"
+          environment-image="neutral"
+          exposure="1.05"
+          field-of-view="30deg"
+          reveal="manual"
+          loading="eager"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-scale="fixed"
+          ar-placement="floor"
+          auto-rotate-delay="0"
+          rotation-per-second="18deg">
+          <button slot="ar-button" class="btn btn-primary btn-lg ar-btn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg>
+            Поставить на стол
+          </button>
+        </model-viewer>
+        <div class="viewer-hint" aria-hidden="true"><span>☝︎ Вращайте пальцем</span><span id="size-hint"></span></div>
+      </div>
+
+      <div class="desktop-ar" id="desktop-ar">
+        <div class="qr-box" id="dish-qr"></div>
+        <p><b>AR работает на телефоне.</b> Отсканируйте код камерой iPhone или Android, откройте блюдо и нажмите «Поставить на стол».</p>
+      </div>
+
+      <div class="dish-head">
+        <h2 id="dish-name">…</h2>
+        <span class="price" id="dish-price"></span>
+      </div>
+      <p class="dish-desc" id="dish-desc"></p>
+
+      <div class="stats">
+        <div class="stat"><small>Вес</small><b id="dish-weight">—</b></div>
+        <div class="stat"><small>Калории</small><b id="dish-kcal">—</b></div>
+        <div class="stat"><small>Размер</small><b id="dish-size">—</b></div>
+      </div>
+
+      <h3 class="section-title">Состав</h3>
+      <div class="chips" id="dish-ingredients"></div>
+
+      <div class="actions">
+        <a class="btn btn-ghost btn-lg" id="cook-btn" href="cook.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z"/><path d="M6 17h12"/></svg>
+          Как готовят
+        </a>
+        <button class="btn btn-primary btn-lg" id="order-btn" type="button">Заказать</button>
+      </div>
+
+      <p class="credit-line" id="dish-credit"></p>
+    </main>
+  </div>
+</body>
+</html>
